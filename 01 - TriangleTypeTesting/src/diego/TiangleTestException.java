@@ -1,50 +1,45 @@
 package diego;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runners.Parameterized.Parameters;
 
 public class TiangleTestException {
-
+	private int l1;
+	private int l2;
+	private int l3;
+	private Class<? extends Exception> c;
+	
+	@Rule
+	public ExpectedException expecation = ExpectedException.none();
+	
+	public TiangleTestException(Class<? extends Exception> c, int l1, int l2, int l3)
+	{
+		this.l1 = l1;
+		this.l2 = l2;
+		this.l3 = l3;
+		this.c = c;
+	}
+	
+	@Parameters
+	public static Collection<Object[]> data()
+	{
+		return Arrays.asList(new Object[][] {
+			{IllegalArgumentException.class, 0, 2, 2},
+			{IllegalArgumentException.class, 2, 0, 2},
+			{NullPointerException.class, null, 2, 0},
+		});
+	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void evaluateShouldThrowException1()
 	{
 		TriangleUtil triangle = new TriangleUtil();
 		triangle.defineType(-5, 2, 3);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void evaluateShouldThrowException2()
-	{
-		TriangleUtil triangle = new TriangleUtil();
-		triangle.defineType(1, -2, 1);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void evaluateShouldThrowException3()
-	{
-		TriangleUtil triangle = new TriangleUtil();
-		triangle.defineType(2, 2, -3);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void evaluateShouldThrowException4()
-	{
-		TriangleUtil triangle = new TriangleUtil();
-		triangle.defineType(120, 60, 65);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void evaluateShouldThrowException5()
-	{
-		TriangleUtil triangle = new TriangleUtil();
-		triangle.defineType(100, 130, 65);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void evaluateShouldThrowException6()
-	{
-		TriangleUtil triangle = new TriangleUtil();
-		triangle.defineType(90, 100, 165);
 	}
 
 }
